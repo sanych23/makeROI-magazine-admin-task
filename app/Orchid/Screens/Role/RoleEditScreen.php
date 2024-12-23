@@ -17,16 +17,8 @@ use Orchid\Support\Facades\Toast;
 
 class RoleEditScreen extends Screen
 {
-    /**
-     * @var Role
-     */
     public $role;
 
-    /**
-     * Fetch data to be displayed on the screen.
-     *
-     * @return array
-     */
     public function query(Role $role): iterable
     {
         return [
@@ -35,25 +27,16 @@ class RoleEditScreen extends Screen
         ];
     }
 
-    /**
-     * The name of the screen displayed in the header.
-     */
     public function name(): ?string
     {
         return 'Edit Role';
     }
 
-    /**
-     * Display header description.
-     */
     public function description(): ?string
     {
         return 'Modify the privileges and permissions associated with a specific role.';
     }
 
-    /**
-     * The permissions required to access this screen.
-     */
     public function permission(): ?iterable
     {
         return [
@@ -61,11 +44,6 @@ class RoleEditScreen extends Screen
         ];
     }
 
-    /**
-     * The screen's action buttons.
-     *
-     * @return Action[]
-     */
     public function commandBar(): iterable
     {
         return [
@@ -80,11 +58,6 @@ class RoleEditScreen extends Screen
         ];
     }
 
-    /**
-     * The screen's layout elements.
-     *
-     * @return string[]|\Orchid\Screen\Layout[]
-     */
     public function layout(): iterable
     {
         return [
@@ -102,9 +75,6 @@ class RoleEditScreen extends Screen
         ];
     }
 
-    /**
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function save(Request $request, Role $role)
     {
         $request->validate([
@@ -129,11 +99,6 @@ class RoleEditScreen extends Screen
         return redirect()->route('platform.systems.roles');
     }
 
-    /**
-     * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function remove(Role $role)
     {
         $role->delete();

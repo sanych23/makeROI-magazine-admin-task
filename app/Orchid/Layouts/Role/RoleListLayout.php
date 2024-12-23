@@ -13,14 +13,8 @@ use Orchid\Screen\TD;
 
 class RoleListLayout extends Table
 {
-    /**
-     * @var string
-     */
     public $target = 'roles';
 
-    /**
-     * @return TD[]
-     */
     public function columns(): array
     {
         return [

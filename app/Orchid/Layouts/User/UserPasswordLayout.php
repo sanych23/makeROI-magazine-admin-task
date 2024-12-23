@@ -11,11 +11,6 @@ use Orchid\Screen\Layouts\Rows;
 
 class UserPasswordLayout extends Rows
 {
-    /**
-     * The screen's layout elements.
-     *
-     * @return Field[]
-     */
     public function fields(): array
     {
         /** @var User $user */

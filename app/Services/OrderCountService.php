@@ -1,7 +1,6 @@
 <?php
 
-namespace App\services;
-use App\Http\Requests\OrderPosition\OrderPositionCreateRequest;
+namespace App\Services;
 use App\Models\OrderPosition;
 
 
@@ -39,18 +38,6 @@ class OrderCountService
             $query->decrement('count', $count);
             return false;
         }
-
-//        if ($query->exists()) {
-//
-//            $query->decrement('count', $count);
-//            return $query->first();
-//        } else {
-//            return OrderPosition::create([
-//                "product_id" => $productId,
-//                "order_id" => $orderId,
-//                "count" => $count
-//            ]);
-//        }
     }
 }
 

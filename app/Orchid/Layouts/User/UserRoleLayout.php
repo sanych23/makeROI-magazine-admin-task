@@ -11,11 +11,6 @@ use Orchid\Screen\Layouts\Rows;
 
 class UserRoleLayout extends Rows
 {
-    /**
-     * The screen's layout elements.
-     *
-     * @return Field[]
-     */
     public function fields(): array
     {
         return [

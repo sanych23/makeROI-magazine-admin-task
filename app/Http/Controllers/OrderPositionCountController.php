@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrderPosition\OrderPositionCountRequest;
 use App\Http\Resources\OrderPositionResource;
 use App\Models\OrderPosition;
-use App\services\OrderCountService;
+use App\Services\OrderCountService;
 
 class OrderPositionCountController extends Controller
 {

@@ -14,18 +14,8 @@ use Throwable;
 
 class RolePermissionLayout extends Rows
 {
-    /**
-     * @var User|null
-     */
     private $user;
 
-    /**
-     * The screen's layout elements.
-     *
-     * @throws Throwable
-     *
-     * @return Field[]
-     */
     public function fields(): array
     {
         $this->user = $this->query->get('user');

@@ -8,9 +8,6 @@ use Orchid\Screen\Layouts\Selection;
 
 class UserFiltersLayout extends Selection
 {
-    /**
-     * @return string[]|Filter[]
-     */
     public function filters(): array
     {
         return [

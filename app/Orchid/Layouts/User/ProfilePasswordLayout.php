@@ -10,11 +10,6 @@ use Orchid\Screen\Layouts\Rows;
 
 class ProfilePasswordLayout extends Rows
 {
-    /**
-     * The screen's layout elements.
-     *
-     * @return Field[]
-     */
     public function fields(): array
     {
         return [

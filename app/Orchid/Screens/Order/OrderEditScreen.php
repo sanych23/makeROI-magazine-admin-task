@@ -6,7 +6,7 @@ use App\Enums\OrderStatusType;
 use App\Models\Order;
 use App\Models\OrderPosition;
 use App\Models\Product;
-use App\services\OrderCountService;
+use App\Services\OrderCountService;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\ModalToggle;
@@ -58,11 +58,6 @@ class OrderEditScreen extends Screen
     public function layout(): iterable
     {
         return [
-
-            Layout::modal('orderPositionUpdate', Layout::rows([
-
-            ])),
-
             Layout::modal('orderPositionAddProduct', Layout::rows([
                 Matrix::make('matrix')
                     ->columns([

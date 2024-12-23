@@ -3,13 +3,12 @@
 namespace App\Orchid\Screens\Product;
 
 use App\Http\Requests\Product\ProductCreateRequest;
+use App\Http\Requests\Product\ProductUpdateRequest;
 use App\Models\Product;
 use App\Orchid\Layouts\Product\ProductEditLayout;
 use App\Orchid\Layouts\Product\ProductListLayout;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Orchid\Screen\Actions\ModalToggle;
-use Orchid\Screen\Fields\Input;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Toast;
@@ -30,7 +29,7 @@ class ProductScreen extends Screen
     {
         return [
             ModalToggle::make('Добавить продукт')
-                ->modal('productCreateModal')
+                ->modal('editProductModal')
                 ->method('createProduct')
                 ->icon('plus'),
         ];
@@ -39,42 +38,17 @@ class ProductScreen extends Screen
     public function layout(): iterable
     {
         return [
-
             ProductListLayout::class,
 
             Layout::modal('editProductModal', ProductEditLayout::class)
                 ->deferred('loadProductOnOpenModal')->title("Edit Product"),
-
-            Layout::modal('productCreateModal', Layout::rows([
-                Input::make('name')
-                    ->title('Name')
-                    ->placeholder('Enter product name')
-                    ->help('The name of the product to be created.'),
-                Input::make('description')
-                    ->title('Description')
-                    ->placeholder('Enter product description'),
-                Input::make('price')
-                    ->title('Price')
-                    ->placeholder('Enter product price'),
-            ]))
-                ->title('Create Product')
-                ->applyButton('Add Product'),
         ];
     }
 
-
-
-    public function saveProduct(Request $request, Product $product): void
+    public function saveProduct(ProductUpdateRequest $request, Product $product): void
     {
-        $validator = Validator::make($request->product, [
-            'name' => ['string'],
-            'description' => ['string'],
-            'price' => ['numeric']
-        ]);
+        $product->update($request->validated());
 
-        if (!$validator->fails()) {
-            $product->update($validator->validated());
-        }
     }
 
     public function removeProduct(Request $request): void
@@ -88,10 +62,14 @@ class ProductScreen extends Screen
         Product::create($request->validated());
     }
 
-    public function loadProductOnOpenModal(Product $product): iterable
+    public function loadProductOnOpenModal(?Product $product): iterable
     {
-        return [
-            'product' => $product,
-        ];
+        if($product){
+            return [
+                'product' => $product,
+            ];
+        }
+
+        return [];
     }
 }

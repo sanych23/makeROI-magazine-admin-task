@@ -2,10 +2,9 @@
 
 namespace App\Orchid\Screens\Product;
 
+use App\Http\Requests\Product\ProductUpdateRequest;
 use App\Models\Product;
 use App\Orchid\Layouts\Product\ProductEditLayout;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
@@ -15,7 +14,7 @@ class ProductEditScreen extends Screen
 {
     public $product;
 
-    public function query(Product $product): iterable
+    public function query(?Product $product): iterable
     {
         return [
             'product' => $product
@@ -56,16 +55,8 @@ class ProductEditScreen extends Screen
         return redirect()->route('platform.products');
     }
 
-    public function save(Product $product, Request $request)
+    public function save(Product $product, ProductUpdateRequest $request)
     {
-        $validator = Validator::make($request->product, [
-            'name' => ['string'],
-            'description' => ['string'],
-            'price' => ['numeric']
-        ]);
-
-        if (!$validator->fails()) {
-            $product->update($validator->validated());
-        }
+            $product->update($request->validated());
     }
 }

@@ -18,21 +18,21 @@ class ProductEditLayout extends Rows
                 ->type('text')
                 ->max(255)
                 ->required()
-                ->title(__('Name'))
-                ->placeholder(__('Name')),
+                ->title('Name')
+                ->placeholder('Name'),
 
             TextArea::make('product.description')
                 ->required()
-                ->title(__('Description'))
-                ->placeholder(__('Description'))
+                ->title('Description')
+                ->placeholder('Description')
                 ->rows(7),
 
             Input::make('product.price')
                 ->type('number')
                 ->max(1000000)
                 ->required()
-                ->title(__('Price'))
-                ->placeholder(__('Price')),
+                ->title('Price')
+                ->placeholder('Price'),
         ];
     }
 }
