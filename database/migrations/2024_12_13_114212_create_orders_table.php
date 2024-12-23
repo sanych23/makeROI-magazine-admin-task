@@ -22,6 +22,7 @@ return new class extends Migration
                 ->onDelete('cascade');
 
             $table->string('status');
+            $table->integer('amo_id')->nullable();
         });
     }
 

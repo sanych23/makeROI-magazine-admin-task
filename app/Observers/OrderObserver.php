@@ -18,23 +18,14 @@ class OrderObserver
     {
         $leadService = ClientAMO::makeClient()->leads();
 
-        $leadService->add((new LeadsCollection())
+        $lead = $leadService->add((new LeadsCollection())
             ->add((new LeadModel())
                 ->setPipelineId(9029654)
+                ->setId($order->id)
                 ->setName("Сделка №{$order->id}")
                 ->setPrice($order->positions->map(fn(OrderPosition $position) => $position->count * $position->product->price)->sum())
                 ->setResponsibleUserId(11883222)
                 ->setCustomFieldsValues((new CustomFieldsValuesCollection())
-//                    ->add((new TextCustomFieldValuesModel())
-//                        ->setFieldId(768843)    // Products
-//                        ->setValues((new TextCustomFieldValueCollection())
-//                            ->add((new TextCustomFieldValueModel())
-//                                ->setValue(ProductsLibs::getProductsString($order->positions->map(function ($position){
-//                                    return $position->product;
-//                                })))
-//                            )
-//                        )
-//                    )
                     ->add((new TextCustomFieldValuesModel())
                         ->setFieldId(768845)    // Сustomer name
                         ->setValues((new TextCustomFieldValueCollection())
@@ -53,29 +44,8 @@ class OrderObserver
                     )
                 )
             ));
-    }
 
-
-    public function updated(Order $order): void
-    {
-        //
-    }
-
-
-    public function deleted(Order $order): void
-    {
-        //
-    }
-
-
-    public function restored(Order $order): void
-    {
-        //
-    }
-
-
-    public function forceDeleted(Order $order): void
-    {
-        //
+            $order->amo_id = $lead[0]->id;
+            $order->save();
     }
 }
