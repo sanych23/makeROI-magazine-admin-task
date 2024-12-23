@@ -15,6 +15,10 @@ class OrderPositionsChanges
 {
     public static function addProductToLead(OrderPosition $position)
     {
+        if(!isset($position->order->amo_id)){
+            return;
+        }
+
         $leadService = ClientAMO::makeClient()->leads();
 
         $leadService->updateOne((new LeadModel())
