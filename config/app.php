@@ -12,6 +12,8 @@ return [
     | other UI elements where an application name needs to be displayed.
     |
     */
+    'amo_token' => env('AMO_TOKEN'),
+
 
     'name' => env('APP_NAME', 'Laravel'),
 
