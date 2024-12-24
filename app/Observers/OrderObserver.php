@@ -18,6 +18,7 @@ class OrderObserver
     {
         $leadService = ClientAMO::makeClient()->leads();
 
+
         $lead = $leadService->add((new LeadsCollection())
             ->add((new LeadModel())
                 ->setPipelineId(9029654)
@@ -45,7 +46,7 @@ class OrderObserver
                 )
             ));
 
-            $order->amo_id = $lead[0]->id;
-            $order->save();
+        $order->amo_id = $lead[0]->id;
+        $order->save();
     }
 }

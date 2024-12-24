@@ -12,6 +12,7 @@ use App\Enums\OrderStatusType;
 use App\Models\Order;
 use App\Models\OrderPosition;
 use App\Services\ClientAMO;
+use Illuminate\Support\Facades\Log;
 
 class SynchronizeStatusAMO
 {
@@ -28,26 +29,23 @@ class SynchronizeStatusAMO
         }
 
         $leadService = ClientAMO::makeClient()->leads();
-
-//        dd($order->status->key);
-
         $leadService->updateOne((new LeadModel())
             ->setId($order->amo_id)
             ->setStatusId(self::STATUSES[$order->status->key])
-//            ->setPrice($position->order->positions->map(fn(OrderPosition $position) => $position->count * $position->product->price)->sum())
-//            ->setCustomFieldsValues((new CustomFieldsValuesCollection())
-//                ->add((new TextCustomFieldValuesModel())
-//                    ->setFieldId(768843)
-//                    ->setValues((new TextCustomFieldValueCollection())
-//                        ->add((new TextCustomFieldValueModel())
-//                            ->setValue(ProductsLibs::getProductsString($position->order->positions->map(function ($position){
-//                                return $position->product;
-//                            })))
-//                        )
-//                    )
-//                )
-//            )
         );
+    }
 
+    public static function orderStatus(int $status_id, int $lead_id)
+    {
+        $order = Order::where('amo_id', $lead_id)->first();
+        if(!$order){
+            Log::info('thats object not found!');
+            return false;
+        }
+
+
+        $order->status = OrderStatusType::getKey(array_search($status_id, self::STATUSES));
+        $order->save();
+        return true;
     }
 }
